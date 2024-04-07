@@ -30,6 +30,8 @@ You can choose website about many subject like:
 
 
 ### Project Explanition
+    Before launching project:
+    pip install -r requirements.txt
 
     We decided to use the News API for our project.
     It has an everything endpoint: 'https://newsapi.org/v2/everything' that works with a query parameter.
