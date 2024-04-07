@@ -60,7 +60,7 @@ def get_article(number):
 
 @app.route('/ml/<number>', methods=['GET'])
 def ml(number):
-    summary = everything_endpoint(QUERY, 5, 1)["articles"][int(number)]["summary"]
+    summary = everything_endpoint(QUERY, 5, 1)["articles"][int(number)]["description"]
     text = translator.translate(summary, src="en", dest="fr").text
     return text
 
