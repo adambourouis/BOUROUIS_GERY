@@ -1,5 +1,8 @@
-from flask import Flask, jsonify, request
+from flask import Flask
 import requests
+from googletrans import Translator
+
+translator = Translator()
 
 app = Flask(__name__)
 
@@ -10,7 +13,23 @@ QUERY = "machine learning"
 
 @app.route('/')
 def index():
-    return 'Hello, World!'
+    return 'Welcome to the Machine Learning articles retriever!'
+
+
+def everything_endpoint(query, page_size, page):
+    # Set up the query parameters
+    parameters = {
+        'q': query,  # Query term
+        'pageSize': page_size,
+        'page': page,
+        'sortBy': 'publishedAt',  # Sort by the most recent articles first
+        'language': 'en',  # Get articles written in English
+        'apiKey': API_KEY,  # Your API key
+    }
+
+    # Make the GET request
+    response = requests.get(URL, params=parameters)
+    return response.json()
 
 
 @app.route('/get_data', methods=['GET'])
@@ -39,26 +58,11 @@ def get_article(number):
     return response["content"]
 
 
-@app.route('/ml', methods=['GET'])
+@app.route('/ml/<number>', methods=['GET'])
 def ml(number):
-    response = everything_endpoint(QUERY, 5, 1)["articles"][int(number)]
-    return response
-
-
-def everything_endpoint(query, page_size, page):
-    # Set up the query parameters
-    parameters = {
-        'q': query,  # Query term
-        'pageSize': page_size,
-        'page': page,
-        'sortBy': 'publishedAt',  # Sort by the most recent articles first
-        'language': 'en',  # Get articles written in English
-        'apiKey': API_KEY,  # Your API key
-    }
-
-    # Make the GET request
-    response = requests.get(URL, params=parameters)
-    return response.json()
+    summary = everything_endpoint(QUERY, 5, 1)["articles"][int(number)]["summary"]
+    text = translator.translate(summary, src="en", dest="fr").text
+    return text
 
 
 if __name__ == '__main__':
