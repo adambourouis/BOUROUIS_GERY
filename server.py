@@ -13,24 +13,6 @@ def index():
     return 'Hello, World!'
 
 
-@app.route('/test', methods=['GET'])
-def test():
-    url = URL
-
-    # Set up the query parameters
-    parameters = {
-        'q': 'machine learning',  # Query term
-        'pageSize': 5,
-        'sortBy': 'publishedAt',  # Sort by the most recent articles first
-        'language': 'en',  # Get articles written in English
-        'apiKey': API_KEY,  # Your API key
-    }
-
-    # Make the GET request
-    response = requests.get(url, params=parameters)
-    return response.json()["articles"]
-
-
 def everything_endpoint(query, page_size, page):
     # Set up the query parameters
     parameters = {
