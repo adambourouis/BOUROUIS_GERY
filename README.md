@@ -38,4 +38,4 @@ You can choose website about many subject like:
         - get_data: which retrieve all the data about the 5 first articles of the given query sorted by publication dates.
         - articles: which retrieve same data as the previous endpoint but it formats the given content to not display the content and summary of the article.
         - articles/{number}: which retrieve the content of a specific article
-        - ml: (#TO DO) but it have to apply a machine learning algorithm to the given article summary
+        - ml/{number}: which apply machine translation algorithm to translate the article summary from english to french
