@@ -70,11 +70,11 @@ def articles():
 @app.route('/articles/<number>', methods=['GET'])
 def get_article(number):
     response = everything_endpoint(QUERY, 5, 1)["articles"][int(number)]
-    return response
+    return response["content"]
 
 
 @app.route('/ml', methods=['GET'])
-def get_article(number):
+def ml(number):
     response = everything_endpoint(QUERY, 5, 1)["articles"][int(number)]
     return response
 
